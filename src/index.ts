@@ -41,4 +41,4 @@ app.use(errorMiddleware);
 /**
  * Listen for requests
  */
-app.listen(config.API_PORT, () => console.log('Ready to handle requests.'));
+app.listen(config.API_PORT, () => console.log(`Ready to handle requests at http://localhost:${config.API_PORT}`));
