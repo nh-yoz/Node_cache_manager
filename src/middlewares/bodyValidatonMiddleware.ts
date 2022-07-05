@@ -33,7 +33,6 @@ const bodyValidationMiddleware = (requiredParams: Param[] = [], optionalParams: 
             // Check all required params
             requiredParams.forEach(param => {
                 if(!Object.keys(req.body).includes(param.name)) {
-                    console.log('2');
                     throw `Missing property: ${param.name}`;
                 }               
                 if (!checkType[param.type](req.body[param.name])) {
@@ -52,11 +51,11 @@ const bodyValidationMiddleware = (requiredParams: Param[] = [], optionalParams: 
                     try {
                         var reg = new RegExp(property.pattern as string)
                     } catch {
-                        console.error(`In bodyValidationMiddleware: Invalid pattern ${property.pattern}`);
+                        console.error (`In bodyValidationMiddleware: Invalid pattern ${property.pattern}`);
                         return res.status(500).json({ status: 500, message: 'Internal server error' });
                     }
                     if (!reg.exec(req.body[property.name])) {
-                        throw `The property ${property.name} does not respect the patters ${property.pattern}`;
+                        throw `The property ${property.name} does not respect the patter ${property.pattern}`;
                     }
                 }
             })

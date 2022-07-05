@@ -11,7 +11,6 @@ export class CarsService {
 
 
     async findOne(id: number): Promise<Car | undefined> {
-        console.log('findone');        
         return new Promise((resolve, reject) => {
             try {
                 const car = this.cars.find(car => car.id === id);
@@ -30,9 +29,7 @@ export class CarsService {
     async create(carData: Omit<Car, 'id'>): Promise<Car> {
         return new Promise((resolve, reject) => {
             try {
-                const newCar = Object.assign(new Car, carData);
-                console.log(newCar, carData);
-                
+                const newCar = Object.assign(new Car, carData);               
                 newCar.id = (this.ids.at(-1) ?? 0) + 1; 
                 this.cars.push(newCar);
                 this.ids.push(newCar.id);

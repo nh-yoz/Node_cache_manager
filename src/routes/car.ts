@@ -26,12 +26,9 @@ router.get('/:id([1-9]{1}[0-9]{0,})', async (req: Request, res: Response, next: 
         next(errors)
     }
 });
-0
-router.post('/', bodyValidationMiddleware([{name: 'brand', type: 'string'}, {name: 'country', type: 'string'}]), async (req: Request, res: Response, next: NextFunction) => {
+
+router.post('/', bodyValidationMiddleware([{name: 'brand', type: 'string'}, {name: 'country', type: 'string', pattern: '[A-Z]{1}\d*'}]), async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (Object.keys(req.body).length !== 2 || Object.keys(req.body).some(key => !['brand', 'country'].includes(key))) {
-            throw new HttpError(400, 'Bad request');
-        }
         const car = await CarController.add(req.body as Car);
         res.status(201).json(car);
     } catch(errors) {
@@ -39,7 +36,7 @@ router.post('/', bodyValidationMiddleware([{name: 'brand', type: 'string'}, {nam
     }
 });
 
-router.put('/:id([1-9]{1}[0-9]{0,})', async (req: Request, res: Response, next: NextFunction) => {
+router.put('/:id([1-9]{1}[0-9]{0,})', bodyValidationMiddleware([{name: 'brand', type: 'string'}, {name: 'country', type: 'string', pattern: '[A-Z]{1}\d*'}]), async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (Object.keys(req.body).length !== 2 || Object.keys(req.body).some(key => !['brand', 'country'].includes(key))) {
             throw new HttpError(400, 'Bad request');
