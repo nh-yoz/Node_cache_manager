@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler } from 'express';
 
-const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
+const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {   
     if (err.length > 0) {
         err.status = 400;
         err.message = err.toString();

@@ -3,22 +3,20 @@ import express, { Request, Response } from 'express';
 import { config } from '~/config';
 import car from '~/routes/car';
 import errorMiddleware from './middlewares/errorMiddleware';
+import cacheManager from './utils/cacheManager';
 
 /**
- * new express app
+ * New express app
  */
 const app = express();
 
 /**
- * On dit à Express que l'on souhaite parser le body des requêtes en JSON
- *
- * @example app.post('/', (req) => req.body.prop)
+ * Parse bodies of json requests
  */
 app.use(express.json());
 
 /**
- * On dit à Express que l'on souhaite autoriser tous les noms de domaines
- * à faire des requêtes sur notre API.
+ * Use cors. All domains are allowed.
  */
 app.use(cors());
 
@@ -26,22 +24,21 @@ app.use(cors());
 /**
  * Routes
  */
-
 app.use('/cars', car);
 
+/**
+ * Default route if no other match
+ */
 app.all('*', (req: Request, res: Response) => 
-    res.status(404).json({status: 404, message: 'Path or method not found'})
+    res.status(404).json({ status: 404, message: 'Path or method not found' }) 
 );
 
+/**
+ * Capture and format thrown errors
+ */
 app.use(errorMiddleware);
 
 /**
- * Gestion des erreurs
- * /!\ Cela doit être le dernier `app.use`
- */
-// app.use(ExceptionsHandler)
-
-/**
- * On demande à Express d'ecouter les requêtes sur le port défini dans la config
+ * Listen for requests
  */
 app.listen(config.API_PORT, () => console.log('Ready to handle requests.'));

@@ -22,7 +22,7 @@ class CarController {
     }
 
     public static async update(id: number, carData: Car) {
-        await this.findOne(id)
+        await this.findOne(id);
         return service.update(id, carData);
     }
 
@@ -30,7 +30,6 @@ class CarController {
         await this.findOne(id);
         return service.delete(id);
     }
-
 }
 
 export default CarController;
