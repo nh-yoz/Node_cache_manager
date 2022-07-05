@@ -1,20 +1,16 @@
 interface cacheEntry {
-    value: any;
-    limit: number;
-    timeout: NodeJS.Timeout | null;
+    value: any
+    limit: number
+    timeout: NodeJS.Timeout | null
 }
 
 interface setOptions {
     ttl?: number; // ttl in milliseconds
-    valueOrFunction: any; // () => any | any;
+    valueOrFunction: (() => void) | unknown;
 }
 
 class CacheManager {
     private cache: { [key: string]: cacheEntry | null } = {};
-
-    constructor() {
-        console.log('NEW');
-    }
 
     get length():number {
         return Object.keys(this.cache).length;
@@ -65,9 +61,9 @@ class CacheManager {
     public async get(key: string, options?: setOptions):Promise<any | undefined> {
         return new Promise((resolve, reject) => {
             const existing = this.cache[key];
-            if (existing) {
-                if (existing.limit < Date.now().valueOf()) {
-                    console.log('From cache');
+            if (existing) {                
+                if (!existing.timeout || existing.limit > Date.now().valueOf()) {
+                    console.log('Using cached value:', existing.value);
                     resolve(existing.value);
                 } else if (options) {
                     this.set(key, options)
@@ -78,7 +74,6 @@ class CacheManager {
                     resolve(undefined);
                 }
             } else if (options) {
-                console.log('Set Cache');                
                 this.set(key, options)
                     .then(res => resolve(res))
                     .catch(err => reject(err))

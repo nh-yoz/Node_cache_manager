@@ -2,7 +2,7 @@ import cors from 'cors'
 import express, { Request, Response } from 'express';
 import { config } from '~/config';
 import car from '~/routes/car';
-import errorMiddleware from './middleWares/errorMiddleware';
+import errorMiddleware from './middlewares/errorMiddleware';
 
 /**
  * new express app
