@@ -10,7 +10,7 @@ The example in this repo is an api using NodeJS and express but you can easily a
 
 There is no actual db, it's simulated using a service.
 
-The module doing the trick is CacheManager.ts in /utils
+The module doing the trick is cacheManager.ts in /src/utils
 
 # Get running
 ```yarn install```
