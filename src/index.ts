@@ -3,7 +3,7 @@ import express, { Request, Response } from 'express';
 import { config } from '~/config';
 import car from '~/routes/car';
 import errorMiddleware from './middlewares/errorMiddleware';
-import cacheManager from './utils/cacheManager';
+import CacheManager from './utils/cacheManager';
 
 /**
  * New express app
@@ -20,6 +20,7 @@ app.use(express.json());
  */
 app.use(cors());
 
+export const cacheManager = new CacheManager();
 
 /**
  * Routes

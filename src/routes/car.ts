@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import CarController from '~/controllers/CarController';
 import Car from '~/types';
 import HttpError from '~/utils/HttpError';
-import cacheManager from '~/utils/cacheManager';
+import { cacheManager } from '~/index';
 import bodyValidationMiddleware from '~/middlewares/bodyValidatonMiddleware'
 
 const router = express.Router();
