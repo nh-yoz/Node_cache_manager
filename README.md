@@ -6,7 +6,7 @@ Using cache is an efficient way to speed up applications.
 
 This repo contains a simple cache manager using the server's ram. This may be a good idea if you are running an api on one single server (without cache sharing between servers) and if the cache is not to big. 
 
-The example in this repo is an api using NodeJS and express but you can easily adapt it for use on front-end React, Vue or another framework based on Node.
+The example in this repo is an api using NodeJS and express but you can easily adapt it for use on front-end with React, Vue or another framework based on NodeJS.
 
 There is no actual db, it's simulated using a service.
 
