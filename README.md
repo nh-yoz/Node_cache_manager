@@ -13,7 +13,7 @@ There is no actual db, it's simulated using a service.
 The module doing the trick is cacheManager.ts in /src/utils
 
 # Install and use the demo
-***prerequisites:* Have [NodeJs](https://nodejs.org) installed**
+**Prerequisites:** Have [NodeJs](https://nodejs.org) installed.
 
 Download the repo from Github.com/nh-yoz:
 
