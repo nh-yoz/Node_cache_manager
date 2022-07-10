@@ -41,14 +41,29 @@ From the terminal, move into the 'Node_cache_manager' directory, download and in
 - Try at http://localhost:3000. You can use [postman](https://www.postman.com/downloads/) and import then collection from the repository (Node_cache_manager/CacheManager.postman_collection.json)
 - Using Swagger-UI at http://localhost:3000/doc
 
+
 # How to use it
-## Properties and methods
+
+## First thing to do
+**Make the use of the cache manager global in your project:**
+- Import class
+- Export an instance of the class 
+
+In index.ts (or app.ts), add:
+
+```
+import CacheManager from './utils/cacheManager';
+export const cacheManager = new CacheManager();
+```
+
+## Properties and methods of the cacheManager class
+
 **Properties**
 1. `length` (readonly): the number of values currently available cache
 2. `keys` (readonly): an array of the currently available keys
 
 **Methods / functions**
-1. `set(key: string, options: { ttl?: number, valueOrFunction: unknown })`: Set a value in cache. Returns a Promise containing the value that has been set.
+1. `set(key: string, options: { ttl?: number, valueOrFunction: unknown })`: Set a new entry in cache. If the key already exists in the cache, it will be overwritten. Returns a Promise that resolves to the value that has been set.
 
     **Parameters:**
     - `key`: Required: the key (as a string) of the cache entry
@@ -61,7 +76,7 @@ From the terminal, move into the 'Node_cache_manager' directory, download and in
     const myCar = await CarController.findOne(1);
     cacheManager.set('car/id=1', myCar);
     ```
-2. `get(key: string, options?: { ttl?: number, valueOrFunction: unknown })`: Get a value from cache. Returns a Promise, with the cached value if existing, otherwise *undefined*.
+2. `get(key: string, options?: { ttl?: number, valueOrFunction: unknown })`: Get a value from cache. Returns a Promise that resolves to the cached value if existing, otherwise *undefined*.
 
     **Parameters:**
     - `key`: Required: the key (as a string) of the cache entry
@@ -78,15 +93,54 @@ From the terminal, move into the 'Node_cache_manager' directory, download and in
 3. `delete(key: string | string[])`: Delete cached entries by their key. If an array of keys is passed to the function, each entry will be deleted. If `key` is missing in the cache, it will be ignored. This method returns nothing. 
 4. `clear()`: Delete all entries in the cache. This method returns nothing.
 
-## First thing to do
-Make the use of the cache manager global in your project:
-- Import class
-- Export an instance of the class 
+## Use in controllers or routes (example with routes)
+In the GET cars/{id} route we set the cache.
 
-In index.ts (or app.ts), add :
+When we updated (or delete) this entry in the db, we have to delete or update the cache too!
 
 ```
-import CacheManager from './utils/cacheManager';
-export const cacheManager = new CacheManager();
+import express, { NextFunction, Request, Response } from 'express';
+import CarController from '~/controllers/CarController';
+import Car from '~/types';
+import { cacheManager} from '<path_to>/index'; // replace <path_to> by the real path
+
+const router = express.Router();
+const TTL = 10000; // TimeToLive for each cached value, in ms.
+
+/**
+ * Get the car having the id defined in path. The id must be an integer not starting with a 0.
+ */ 
+router.get('/:id([1-9]{1}[0-9]{0,})', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = parseInt(req.params.id);
+        // Get value from cache. If not there, the callback will get the value and put it into cache
+        const car = await cacheManager.get(`cars/${id}`, { ttl: TTL, valueOrFunction: () => CarController.findOne(id) })
+        res.status(200).json(car);
+    } catch(errors) {
+        next(errors)
+    }
+});
+
+/**
+ * Update the car having the id defined in path. The id must be an integer not starting with a 0.
+ */ 
+router.put('/:id([1-9]{1}[0-9]{0,})', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = parseInt(req.params.id);
+        const car = await CarController.update(id, req.body);
+        // The car has been modified, delete the cached entry from the cache if it exists
+        cacheManager.delete(`cars/${id}`)
+        res.status(200).json(car);
+    } catch(errors) {
+        next(errors)
+    }
+});
 ```
-### Add to controllers or routes
+
+
+
+
+
+
+
+

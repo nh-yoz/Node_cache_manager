@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import CarController from '~/controllers/CarController';
 import Car from '~/types';
-import HttpError from '~/utils/HttpError';
 import { cacheManager } from '~/index';
 import bodyValidationMiddleware from '~/middlewares/bodyValidatonMiddleware'
 
@@ -41,7 +40,7 @@ router.get('/:id([1-9]{1}[0-9]{0,})', async (req: Request, res: Response, next: 
  *   country: string
  * }
  * 
- * The pattern '^[A-Z]{1}[a-z]+$' is only given for example, incomplete to describe name of countries
+ * The pattern '^[A-Z]{1}[a-z]*( [A-Z]{1}[a-z]*)*$' is only given for example, change to whatever suits you needs
  */ 
 router.post('/', bodyValidationMiddleware([{property: 'brand', type: 'string'}, {property: 'country', type: 'string', pattern: '^[A-Z]{1}[a-z]*( [A-Z]{1}[a-z]*)*$'}]), async (req: Request, res: Response, next: NextFunction) => {
     try {       
@@ -64,9 +63,6 @@ router.post('/', bodyValidationMiddleware([{property: 'brand', type: 'string'}, 
  */ 
 router.put('/:id([1-9]{1}[0-9]{0,})', bodyValidationMiddleware([{property: 'brand', type: 'string'}, {property: 'country', type: 'string', pattern: '^[A-Z]{1}[a-z]*( [A-Z]{1}[a-z]*)*$'}]), async (req: Request, res: Response, next: NextFunction) => {
     try {
-        if (Object.keys(req.body).length !== 2 || Object.keys(req.body).some(key => !['brand', 'country'].includes(key))) {
-            throw new HttpError(400, 'Bad request');
-        }
         const id = parseInt(req.params.id);
         const car = await CarController.update(id, req.body);
         // The car has been modified, delete the cached entry if exists
