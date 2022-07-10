@@ -23,7 +23,7 @@ interface CacheEntry extends CacheValue {
 }
 
 interface SetOptions {
-    ttl?: number; // ttl in milliseconds
+    ttl?: number; // time-to-live in milliseconds
     valueOrFunction: (() => void) | unknown;
 }
 

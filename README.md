@@ -42,4 +42,25 @@ From the terminal, move into the 'Node_cache_manager' directory, download and in
 - Using Swagger-UI at http://localhost:3000/doc
 
 # How to use it
-Will soon be available...
+The cache manager has:
+- two properties:
+    1. `length` (readonly): the number of values currently available cache
+    2. `keys` (readonly): an array of the currently available keys
+- four methods:
+    1. `set(key: string, options: { ttl?: number, valueOrFunction: unknown })`: Sets a value in cache
+    2. `get(key: string, options?: { ttl?: number, valueOrFunction: unknown })`: Get existing cached value
+    3. `delete(key)`: Delete an existing cached value (if the `key` is available) 
+    4. `clear()`: Delete all cached values
+
+## First thing to do
+Make the use of the cache manager global in your project:
+- Import class
+- Export an instance of the class 
+
+In index.ts (or app.ts), add :
+
+```
+import CacheManager from './utils/cacheManager';
+export const cacheManager = new CacheManager();
+```
+### Add to controllers or routes
