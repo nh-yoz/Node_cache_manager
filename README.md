@@ -87,7 +87,7 @@ export const cacheManager = new CacheManager();
 
     **Example:**
     ```
-    const myCar = await cacheManager.get('car/id=1', { ttl: 5000, () => CarController.findOne(1));
+    const myCar = await cacheManager.get('car/id=1', { ttl: 5000, valueOrFunction: () => CarController.findOne(1) });
     ``` 
 
 3. `delete(key: string | string[])`: Delete cached entries by their key. If an array of keys is passed to the function, each entry will be deleted. If `key` is missing in the cache, it will be ignored. This method returns nothing. 
