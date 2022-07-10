@@ -68,7 +68,7 @@ export const cacheManager = new CacheManager();
     **Parameters:**
     - `key`: Required: the key (as a string) of the cache entry
     - `options`: Required: an object containg the properties:
-        - `ttl`: Optionnal: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
+        - `ttl?`: Optionnal: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
         - `valueOrFunction`: Required: Any value (object, array, string, boolean, ...) or a function. If this property is a function it will be executed to retrieve it's result as a value to put in the cache. If the function returns a Promise, the resolved value will be used.
 
     **Example:**
@@ -81,7 +81,7 @@ export const cacheManager = new CacheManager();
     **Parameters:**
     - `key`: Required: the key (as a string) of the cache entry
     - `options`: Optional: an object containg the following properties:
-        - `ttl`: Optionnal: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
+        - `ttl?`: Optionnal: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
         - `valueOrFunction`: Optional: Any value (object, array, string, boolean, ...) or a function. If the `key` wasn't found in the cache, the entry will be set (as by the 
         `set` function here above.
 
