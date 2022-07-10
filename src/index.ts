@@ -28,6 +28,13 @@ export const cacheManager = new CacheManager();
 app.use('/cars', car);
 
 /**
+ * Use the tryout with swagger-ui
+ */
+import { swaggerSpecification, swaggerOptions } from '../swagger.config';
+import swaggerUi from 'swagger-ui-express';
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpecification, swaggerOptions));
+
+/**
  * Default route if no other match
  */
 app.all('*', (req: Request, res: Response) => 

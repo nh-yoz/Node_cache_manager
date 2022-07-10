@@ -6,7 +6,7 @@ import { cacheManager } from '~/index';
 import bodyValidationMiddleware from '~/middlewares/bodyValidatonMiddleware'
 
 const router = express.Router();
-const TTL = 5000; // TimeToLive for each cached value, in ms.
+const TTL = 10000; // TimeToLive for each cached value, in ms.
 
 /**
  * Get all cars in db.
@@ -43,7 +43,7 @@ router.get('/:id([1-9]{1}[0-9]{0,})', async (req: Request, res: Response, next: 
  * 
  * The pattern '^[A-Z]{1}[a-z]+$' is only given for example, incomplete to describe name of countries
  */ 
-router.post('/', bodyValidationMiddleware([{property: 'brand', type: 'string'}, {property: 'country', type: 'string', pattern: '^[A-Z]{1}[a-z]+$'}]), async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', bodyValidationMiddleware([{property: 'brand', type: 'string'}, {property: 'country', type: 'string', pattern: '^[A-Z]{1}[a-z]*( [A-Z]{1}[a-z]*)*$'}]), async (req: Request, res: Response, next: NextFunction) => {
     try {       
         const car = await CarController.add(req.body as Car);
         res.status(201).json(car);
@@ -62,7 +62,7 @@ router.post('/', bodyValidationMiddleware([{property: 'brand', type: 'string'}, 
  * 
  * The pattern '^[A-Z]{1}[a-z]+$' is only given for example, incomplete to describe name of countries
  */ 
-router.put('/:id([1-9]{1}[0-9]{0,})', bodyValidationMiddleware([{property: 'brand', type: 'string'}, {property: 'country', type: 'string', pattern: '^[A-Z]{1}[a-z]{1,}$'}]), async (req: Request, res: Response, next: NextFunction) => {
+router.put('/:id([1-9]{1}[0-9]{0,})', bodyValidationMiddleware([{property: 'brand', type: 'string'}, {property: 'country', type: 'string', pattern: '^[A-Z]{1}[a-z]*( [A-Z]{1}[a-z]*)*$'}]), async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (Object.keys(req.body).length !== 2 || Object.keys(req.body).some(key => !['brand', 'country'].includes(key))) {
             throw new HttpError(400, 'Bad request');

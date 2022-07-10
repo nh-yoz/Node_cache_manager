@@ -1,0 +1,35 @@
+components:
+  examples:
+    CarCreateResponse:
+      summary: Create Kia
+      value:
+        id: 10
+        brand: Kia
+        country: Korea
+
+    CarUpdateResponse:
+      summary: Update Kia
+      value:
+        id: 10
+        brand: Kia Motors
+        country: South Korea
+
+    CarGetResponse:
+      summary: Get a car
+      value:
+        id: 4
+        brand: Volvo
+        country: Sweden
+
+    CarsGetResponse:
+      summary: Get cars
+      value:
+        - id: 1
+          brand: Ford
+          country: USA
+        - id: 2
+          brand: Lamborghini
+          country: Italy
+        - id: 3
+          brand: Ferrari
+          country: Italy

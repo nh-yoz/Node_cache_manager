@@ -1,16 +1,27 @@
 import { cars } from '~/data'
 import Car from '~/types';
 
+/**
+ * Constants used to simulatate response delay from db
+ */
+const MIN_SLEEP_TIME = 50; // in ms
+const MAX_SLEEP_TIME = 100; // in ms
+
 export class CarsService {
     cars: Car[] = cars;
     ids: number[] = cars.map(car => car.id);
 
+
+    private sleep = () => new Promise(resolve => setTimeout(resolve, Math.random() * (MAX_SLEEP_TIME-MIN_SLEEP_TIME) + MIN_SLEEP_TIME));
+
     async findAll(): Promise<Car[]> {
+        await this.sleep();
         return new Promise(resolve => resolve(this.cars));
     } 
 
 
     async findOne(id: number): Promise<Car | undefined> {
+        await this.sleep();
         return new Promise((resolve, reject) => {
             try {
                 const car = this.cars.find(car => car.id === id);
@@ -27,6 +38,7 @@ export class CarsService {
 
 
     async create(carData: Omit<Car, 'id'>): Promise<Car> {
+        await this.sleep();
         return new Promise((resolve, reject) => {
             try {
                 const newCar = Object.assign(new Car, carData);               
@@ -41,6 +53,7 @@ export class CarsService {
     };
 
     async update(id:number, carData: Omit<Car, 'id'>): Promise<Car> {
+        await this.sleep();
         return new Promise((resolve, reject) => {
             const idx = cars.findIndex(car => car.id === id);
             if (idx === -1) {
@@ -53,6 +66,7 @@ export class CarsService {
     };
 
     async delete(id: number): Promise<Car> {
+        await this.sleep();
         return new Promise((resolve, reject) => {
             const idx = cars.findIndex(car => car.id === id);
             if (idx === -1) {

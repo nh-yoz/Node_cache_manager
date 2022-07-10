@@ -1,0 +1,12 @@
+components:
+  schemas:
+    HttpErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        data:
+          AnyValue:
+          description: May provide additionnal information about the client-side error Can be anything (string, number, boolean, array, object) or, if no information available, undefined.

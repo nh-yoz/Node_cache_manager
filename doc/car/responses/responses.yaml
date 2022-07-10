@@ -1,0 +1,41 @@
+components:
+  responses:
+    CarCreateResponse:
+      description: 'Created: A new car has been created'
+      content:
+        applicaton/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/CarCreateResponse'
+          examples:
+            - $ref: '#/components/examples/CarCreateResponse'
+
+    CarUpdateResponse:
+      description: 'OK: The domain has been modified'
+      content:
+        applicaton/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/CarUpdateResponse'
+          examples:
+            - $ref: '#/components/examples/CarUpdateResponse'
+
+    CarGetResponse:
+      description: OK
+      content:
+        applicaton/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/CarGetResponse'
+          examples:
+            - $ref: '#/components/examples/CarGetResponse'
+
+    CarsGetResponse:
+      description: OK
+      content:
+        applicaton/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/CarsGetResponse'
+          examples:
+            - $ref: '#/components/examples/CarsGetResponse'

@@ -1,0 +1,51 @@
+components:
+  responses:
+    InternalServerErrorResponse:
+      description: 'Internal server error: Something went wrong...'
+      content:
+        applicaton/json:
+          schema:
+            $ref: '#/components/schemas/HttpErrorResponse'
+          examples:
+            - $ref: '#/components/examples/InternalServerErrorResponse'
+
+    EntityNotFoundResponse:
+      description: "Not found: The entity could not be found"
+      content:
+        applicaton/json:
+          schema:
+            $ref: "#/components/schemas/HttpErrorResponse"
+          examples:
+            - $ref: "#/components/examples/EntityNotFoundResponse"
+
+    PathNotFoundResponse:
+      description: "The request url is invalid"
+      content:
+        applicaton/json:
+          schema:
+            $ref: "#/components/schemas/HttpErrorResponse"
+          examples:
+            - $ref: "#/components/examples/EntityNotFoundResponse"
+
+    BadRequestResponse:
+      description: "Bad request"
+      content:
+        applicaton/json:
+          schema:
+            $ref: "#/components/schemas/HttpErrorResponse"
+          examples:
+            - $ref: "#/components/examples/BadRequestResponse"
+    
+    BadRequestValidationResponse:
+      description: "Bad request"
+      content:
+        applicaton/json:
+          schema:
+            $ref: "#/components/schemas/HttpErrorResponse"
+          examples:
+            - $ref: "#/components/examples/InvalidPropertyResponse"
+            - $ref: "#/components/examples/InvalidPatternResponse"
+            - $ref: "#/components/examples/MissingPropertyResponse"
+    
+    NoContentResponse:
+      description: "No content"

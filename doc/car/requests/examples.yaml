@@ -1,0 +1,13 @@
+components:
+  examples:
+    CarCreateRequest:
+      summary: 'Create Kia car'
+      value:
+        brand: Kia
+        country: Korea
+
+    CarUpdateRequest:
+      summary: 'Update a car'
+      value:
+        brand: Kia Motors
+        country: South Korea

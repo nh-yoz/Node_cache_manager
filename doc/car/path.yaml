@@ -1,0 +1,95 @@
+paths:
+  /cars:
+    get:
+      tags:
+        - Cars
+      summary: Return all cars
+      description: "This route doesn't use cache"
+      produces:
+        - application/json
+      responses:
+        '200':
+          $ref: '#/components/responses/CarsGetResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+    post:
+      tags:
+        - Cars
+      summary: Create a new car
+      description: "This route doesn't use cache"
+      requestBody:
+        $ref: "#/components/requestBodies/CarCreateRequest"
+      produces:
+        - application/json
+      responses:
+        '201':
+          $ref: '#/components/responses/CarCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestValidationResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+
+  /cars/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: '^[1-9]{1}[0-9]{0,}$'
+        examples:
+          '1':
+            summary: id = 1
+            value: 1
+        required: true
+        description: The id of the car
+
+    get:
+      tags:
+        - Cars
+      summary: Return a specific car
+      description: "This route uses cache (adds entry 'cars/{id})"
+      produces:
+        - application/json
+      responses:
+        '200':
+          $ref: '#/components/responses/CarGetResponse'
+        '404':
+          $ref: '#/components/responses/EntityNotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+    
+    put:
+      tags:
+        - Cars
+      summary: Update the car with id={id}
+      description: "This route deletes the cache entry 'cars/{id}'"
+      requestBody:
+        $ref: "#/components/requestBodies/CarUpdateRequest"
+      produces:
+        - application/json
+      responses:
+        '200':
+          $ref: '#/components/responses/CarUpdateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestValidationResponse'
+        '404':
+          $ref: '#/components/responses/EntityNotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+    
+    delete:
+      tags:
+        - Cars
+      summary: Delete the car with id={id}
+      description: "This route deletes the cache entry 'cars/{id}'"
+      produces:
+        - application/json
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContentResponse'
+        '404':
+          $ref: '#/components/responses/EntityNotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+

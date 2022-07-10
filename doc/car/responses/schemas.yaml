@@ -1,0 +1,18 @@
+components:
+  schemas:
+    CarCreateResponse:
+      type: object
+      $ref: "#/components/schemas/CarModel"
+
+    CarUpdateResponse:
+      type: object
+      $ref: "#/components/schemas/CarModel"
+
+    CarGetResponse:
+      type: object
+      $ref: "#/components/schemas/CarModel"
+
+    CarsGetResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/CarModel"

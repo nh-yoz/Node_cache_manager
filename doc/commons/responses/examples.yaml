@@ -1,0 +1,46 @@
+components:
+  examples:
+    InternalServerErrorResponse:
+      summary: Internal server error
+      value:
+        status: 500
+        message: "Internal server error"
+
+    EntityNotFoundResponse:
+      summary: Entity not found
+      value:
+        status: 404
+        message: Entity not found
+    
+    PathNotFoundResponse:
+      summary: Path or method not found
+      value:
+        status: 404
+        message: Path or method not found
+
+    BadRequestResponse:
+      summary: 'Bad request'
+      value:
+        status: 400
+        message: Bad request
+
+    InvalidPropertyResponse:
+      summary: 'Invalid property'
+      value:
+        status: 400
+        message: Bad request
+        data: 'Invalid property: xxx'
+
+    InvalidPatternResponse:
+      summary: 'Invalid pattern'
+      value:
+        status: 400
+        message: Bad request
+        data: 'The property xxx does not respect the pattern [regExp pattern]'
+
+    MissingPropertyResponse:
+      summary: 'Missing property'
+      value:
+        status: 400
+        message: Bad request
+        data: 'Missing property: [name of missing property]'

@@ -1,0 +1,15 @@
+displayRequestDuration: true
+components:
+  schemas:
+    CarModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        brand:
+          type: string
+          example: Toyota
+        country:
+          type: string
+          example: Japan

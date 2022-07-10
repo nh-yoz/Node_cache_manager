@@ -1,0 +1,25 @@
+components:
+  requestBodies:
+    CarCreateRequest:
+      description: A JSON object containing car information
+      required: true
+      content:
+        'application/json':
+          schema:
+            type: object
+            $ref: "#/components/schemas/CarCreateRequest"
+          examples:
+            '1':
+              $ref: "#/components/examples/CarCreateRequest"
+
+    CarUpdateRequest:
+      description: A JSON object containing car information
+      required: true
+      content:
+        'application/json':
+          schema:
+            type: object
+            $ref: "#/components/schemas/CarUpdateRequest"
+          examples:
+            '1':
+              $ref: "#/components/examples/CarUpdateRequest"
