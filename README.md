@@ -13,13 +13,13 @@ There is no actual db, it's simulated using a service.
 The module doing the trick is cacheManager.ts in /src/utils
 
 # Install and use the demo
-**Prerequisites:** Have [NodeJs](https://nodejs.org) installed.
+**Prerequisites:** Have [NodeJs](https://nodejs.org) installed and a package manager like [npm]([https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://www.npmjs.com/)) or [yarn](https://yarnpkg.com/).
 
 Download the repo from Github.com/nh-yoz:
 
 **From linux terminal**
 - Using https from terminal: ```git clone https://github.com/nh-yoz/Node_cache_manager.git```
-- Using SSH: ```git clone git@github.com:nh-yoz/Node_cacDZhe_manager.git```
+- Using SSH: ```git clone git@github.com:nh-yoz/Node_cache_manager.git```
 - Using Github CLI: ```gh repo clone nh-yoz/Node_cache_manager```
 
 **From downloaded zip**
@@ -68,20 +68,20 @@ export const cacheManager = new CacheManager();
     **Parameters:**
     - `key`: Required: the key (as a string) of the cache entry
     - `options`: Required: an object containg the properties:
-        - `ttl?`: Optionnal: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
+        - `ttl?`: Optional: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
         - `valueOrFunction`: Required: Any value (object, array, string, boolean, ...) or a function. If this property is a function it will be executed to retrieve it's result as a value to put in the cache. If the function returns a Promise, the resolved value will be used.
 
     **Example:**
     ```
     const myCar = await CarController.findOne(1);
-    cacheManager.set('car/id=1', myCar);
+    cacheManager.set('car/id=1', { valueOrFunction: myCar });
     ```
 2. `get(key: string, options?: { ttl?: number, valueOrFunction: unknown })`: Get a value from cache. Returns a Promise that resolves to the cached value if existing, otherwise *undefined*.
 
     **Parameters:**
     - `key`: Required: the key (as a string) of the cache entry
     - `options`: Optional: an object containg the following properties:
-        - `ttl?`: Optionnal: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
+        - `ttl?`: Optional: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
         - `valueOrFunction`: Optional: Any value (object, array, string, boolean, ...) or a function. If the `key` wasn't found in the cache, the entry will be set (as by the 
         `set` function here above.
 
