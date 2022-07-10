@@ -40,3 +40,6 @@ From the terminal, move into the 'Node_cache_manager' directory, download and in
 ### Try it out
 - Try at http://localhost:3000. You can use [postman](https://www.postman.com/downloads/) and import then collection from the repository (Node_cache_manager/CacheManager.postman_collection.json)
 - Using Swagger-UI at http://localhost:3000/doc
+
+# How to use it
+Will soon be available...
