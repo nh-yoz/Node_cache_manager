@@ -1,25 +1,43 @@
 components:
   examples:
+    DateCreateResponse:
+      summary: Dates
+      value:
+        createdAt: "2021-07-05T12:08:48.224Z"
+        updatedAt: "2021-07-05T12:08:48.224Z"
+
+    DateUpdateResponse:
+      summary: Dates
+      value:
+        createdAt: "2021-07-05T12:08:48.224Z"
+        updatedAt: "2021-11-04T15:12:02.789Z"
+
     CarCreateResponse:
       summary: Create Kia
-      value:
-        id: 10
-        brand: Kia
-        country: Korea
+      allOf:
+        - value:
+            id: 10
+            brand: Kia
+            country: Korea
+        - $ref: '#/components/examples/DateCreateResponse'
 
     CarUpdateResponse:
       summary: Update Kia
-      value:
-        id: 10
-        brand: Kia Motors
-        country: South Korea
+      allOf:
+        - value:
+            id: 10
+            brand: Kia Motors
+            country: South Korea
+        - $ref: '#/components/examples/DateUpdateResponse'
 
     CarGetResponse:
       summary: Get a car
-      value:
-        id: 4
-        brand: Volvo
-        country: Sweden
+      allOf:
+        - value:
+            id: 4
+            brand: Volvo
+            country: Sweden
+        - $ref: '#/components/examples/DateUpdateResponse'
 
     CarsGetResponse:
       summary: Get cars
@@ -27,9 +45,15 @@ components:
         - id: 1
           brand: Ford
           country: USA
+          createdAt: "2021-07-05T12:08:48.224Z"
+          updatedAt: "2021-07-05T12:08:48.224Z"
         - id: 2
           brand: Lamborghini
           country: Italy
+          createdAt: "2021-07-05T12:08:48.224Z"
+          updatedAt: "2021-11-04T15:12:02.789Z"
         - id: 3
           brand: Ferrari
           country: Italy
+          createdAt: "2021-07-05T12:08:48.224Z"
+          updatedAt: "2021-07-05T12:08:48.224Z"

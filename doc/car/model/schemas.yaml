@@ -1,15 +1,26 @@
 displayRequestDuration: true
 components:
   schemas:
+    DateModel:
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
     CarModel:
       type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        brand:
-          type: string
-          example: Toyota
-        country:
-          type: string
-          example: Japan
+      allOf:
+        - properties:
+            id:
+              type: integer
+              example: 1
+            brand:
+              type: string
+              example: Toyota
+            country:
+              type: string
+              example: Japan
+        - $ref: '#/components/schemas/DateModel'

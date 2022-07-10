@@ -7,6 +7,8 @@ import Car from '~/types';
 const MIN_SLEEP_TIME = 50; // in ms
 const MAX_SLEEP_TIME = 100; // in ms
 
+const nowIso = () => new Date().toISOString();
+
 export class CarsService {
     cars: Car[] = cars;
     ids: number[] = cars.map(car => car.id);
@@ -43,6 +45,8 @@ export class CarsService {
             try {
                 const newCar = Object.assign(new Car, carData);               
                 newCar.id = (this.ids.at(-1) ?? 0) + 1; 
+                newCar.createdAt = nowIso();
+                newCar.updatedAt = newCar.createdAt;
                 this.cars.push(newCar);
                 this.ids.push(newCar.id);
                 resolve(newCar);
@@ -60,7 +64,7 @@ export class CarsService {
                 reject(new Error('Entity does not exist'));
             }
             const existingCar = cars[idx]; 
-            cars[idx] = { ...Object.assign(existingCar, carData), id: existingCar.id };
+            cars[idx] = { ...Object.assign(existingCar, carData), id: existingCar.id, updatedAt: nowIso() };
             resolve(cars[idx]);
         });
     };
