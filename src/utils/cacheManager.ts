@@ -144,7 +144,7 @@ class CacheManager {
     /**
     * Clears the entire cache
     */
-    public clear() {
+    public clear = () => {
         this.delete(Object.keys(this.cache));
         this.cache = {};
     }
