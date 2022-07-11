@@ -1,7 +1,7 @@
 # Node cache manager 
 Cache manager for local cache (using RAM).
 
-*NodeJS, Express*
+*TypeScript, NodeJS, Express*
 
 # Summary
 Using cache is an efficient way to speed up applications.
