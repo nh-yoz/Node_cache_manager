@@ -1,6 +1,6 @@
 /* CACHEMANAGER 
  * 
- * Cachemanager for NodeJs using server's RAM.
+ * Cachemanager for NodeJs using the computer's RAM.
  * 
  * Available properties:
  * - length (readonly): the number of values in cache
@@ -9,7 +9,7 @@
  * Available methods:
  * - set: Sets a value in cache
  * - get: Get existing cached value
- * - delete: Delete existing cached value 
+ * - delete: Delete existing cached value
  * - clear: Delete all cached values
  */
 
@@ -31,7 +31,7 @@ class CacheManager {
     // The cache. Object key -> value. Initialised to be an empty object
     private cache: { [key: string]: CacheEntry } = {};
 
-    get length():number {
+    get length(): number {
         return Object.keys(this.cache).length;
     }
 
@@ -81,7 +81,7 @@ class CacheManager {
     */
     public async set(key: string, options: SetOptions): Promise<unknown> {
         return new Promise((resolve, reject) => {
-            const ttl = options.ttl ? options.ttl : 0;
+            const ttl = options.ttl ?? 0;
             if (typeof options.valueOrFunction === 'function') {
                 const newValue = options.valueOrFunction();
                 if (newValue instanceof Promise) {
@@ -108,7 +108,7 @@ class CacheManager {
     public async get(key: string, options?: SetOptions):Promise<unknown | undefined> {
         return new Promise((resolve, reject) => {
             const existing = this.cache[key];
-            if (existing) {                
+            if (existing !== undefined) {                
                 if (!existing.timeout || (existing.limit && existing.limit > Date.now().valueOf())) {
                     console.info('Using cached value:', existing.value);
                     resolve(existing.value);
@@ -149,6 +149,5 @@ class CacheManager {
         this.cache = {};
     }
 }
-
 
 export default CacheManager;
