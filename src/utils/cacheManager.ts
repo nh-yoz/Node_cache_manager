@@ -110,7 +110,7 @@ class CacheManager {
             const existing = this.cache[key];
             if (existing !== undefined) {                
                 if (!existing.timeout || (existing.limit && existing.limit > Date.now().valueOf())) {
-                    console.info('Using cached value:', existing.value);
+                    console.info(`Using cached value for: ${key}`);
                     resolve(existing.value);
                 } else if (options) {
                     this.set(key, options)
