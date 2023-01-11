@@ -84,7 +84,7 @@ export const cacheManager = new CacheManager();
     - `key`: Required: the key (as a string) of the cache entry
     - `options`: Optional: an object containg the following properties:
         - `ttl?`: Optional: The time to live in milliseconds of the cached entry. When time is out, the cached entry will be deleted. If this property is missing, undefined or <= 0  the cached value will never be automatically deleted.
-        - `valueOrFunction`: Optional: Any value (object, array, string, boolean, ...) or a function. If the `key` wasn't found in the cache, the entry will be set (as by the 
+        - `valueOrFunction`: Any value (object, array, string, boolean, ...) or a function. If the `key` wasn't found in the cache, the entry will be set (as by the 
         `set` function here above.
 
     **Example:**
